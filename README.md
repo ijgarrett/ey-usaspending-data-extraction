@@ -2,7 +2,7 @@
 
 This repository contains the production-grade data engineering pipeline used to ingest, clean, and transform the bulk FY2026 USAspending transaction logs. The resulting dataset is optimized for dense NLP semantic embeddings, capability matching, and financial runway tracking.
 
-## 📋 Transformation & Ingestion Record
+## Transformation & Ingestion Record
 
 ### 1. Schema Optimization & Scope Filtering
 * **Action:** Trimmed the raw USAspending layout from 297 columns down to core target variables, then filtered rows strictly to those matching NAICS code prefix `54` (Professional, Scientific, and Technical Services).
@@ -17,7 +17,7 @@ This repository contains the production-grade data engineering pipeline used to 
 * **Log Scaling:** Applied a $\log_{10}(x + 1)$ scale transformation to the highly skewed `current_total_value_of_award` figures to prevent massive outlier awards from dominating future scoring weights.
 * **Temporal Horizons:** Built integer countdown fields (`contract_duration_days` and `days_until_recompete`) relative to a standard pipeline tracking index (June 23, 2026) to identify imminent recompete windows.
 
-## 🧠 Core Pipeline Assumptions
+## Core Pipeline Assumptions
 1. **Scope Boundary:** We assume any transaction outside of NAICS `54xxxx` is an outlier relative to EY’s primary professional services focus area and can be safely omitted.
 2. **Missing Date Logic:** Contracts missing a formal potential end date are assumed to be static administrative/obligatory adjustments rather than active project extensions, and are safely backdated to a baseline placeholder (`1970-01-01`).
 3. **Primary Text Weight:** We assume the core technical capabilities of an award are captured fully by combining the base transaction description with the specific product/service code description.
